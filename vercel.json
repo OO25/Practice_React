@@ -1,5 +1,0 @@
-{
-  "buildCommand": "cd practice-react && npm run build",
-  "outputDirectory": "practice-react/.next",
-  "installCommand": "cd practice-react && npm install"
-}
