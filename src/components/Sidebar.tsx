@@ -53,43 +53,7 @@ export default function Sidebar({ selectedCategory, onCategoryChange }: SidebarP
               {item.label}  {/* Display the navigation label */}
             </button>
           ))}
-        </div>
-        
-        {/* Category Section */}
-        <div>
-          {/* Category section title */}
-          <div className="text-gray-900 font-semibold mb-4 text-sm">Category</div>
-          
-          {/* Container for category items with spacing */}
-          <div className="space-y-1">
-            {/* Map through categories to create category items */}
-            {categories.map((category, index) => (
-              <div 
-                key={index} // React key using array index
-                // Dynamic styling based on category status
-                className={`flex items-center justify-between py-2.5 px-4 rounded-md cursor-pointer ${
-                  category.isActive 
-                    ? "bg-gray-700 text-white"          // Active: dark background
-                    : index === 0 
-                      ? "bg-gray-100"                   // First item: light gray background
-                      : "text-gray-700 hover:bg-gray-50"  // Others: hover effect
-                }`}
-              >
-                {/* Category name with conditional styling */}
-                <span className={`text-sm ${category.isActive ? 'font-medium' : ''}`}>
-                  {category.name}
-                </span>
-                
-                {/* Category count with conditional coloring */}
-                <span className={`text-xs font-medium ${
-                  category.isActive ? 'text-gray-300' : 'text-gray-500' // Lighter color if active
-                }`}>
-                  {category.count}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
+        </div>  
       </div>
     </div>
   );

@@ -6,7 +6,7 @@ interface HeaderProps {
 
 // Header component that displays the top navigation bar
 // Uses destructuring with default values if props aren't provided
-export default function Header({ userName = "Name", userRole = "Admin" }: HeaderProps) {
+export default function Header({ userName = "Andrew", userRole = "Admin" }: HeaderProps) {
   return (
     // Header element with white background, subtle shadow, and bottom border
     <header className="bg-white shadow-sm border-b border-gray-200 px-6 py-3">
