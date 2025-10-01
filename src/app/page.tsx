@@ -1,103 +1,74 @@
-import Image from "next/image";
+// This tells Next.js that this component runs on the client side (not server-side)
+"use client";
 
+// Import React's useState hook for managing component state
+import { useState } from "react";
+// Import our custom components using Next.js path alias
+import Header from "@/components/Header";
+import Sidebar from "@/components/Sidebar";
+import InventoryTable from "@/components/InventoryTable";
+
+// TypeScript interface that defines the structure of an inventory item
+interface InventoryItem {
+  id: number;                 // Unique identifier for each item
+  name: string;               // Display name of the vegetable
+  lastEdit: string;           // Date when item was last edited
+  editedBy: string;           // Name of person who last edited
+  stock: number;              // Current stock quantity
+  previousStock: number;      // Previous month's stock quantity
+  needsStockCheck: boolean;   // Whether item needs stock verification
+}
+
+// Extended array of sample inventory data (increased from 8 to 20 items)
+const initialInventory: InventoryItem[] = [
+
+  // Additional items 9-20 with varied stock status for more realistic data
+  { id: 1, name: "Tomatoes", lastEdit: "02/09/2025", editedBy: "Admin", stock: 35, previousStock: 40, needsStockCheck: false },
+  { id: 2, name: "Carrots", lastEdit: "01/09/2025", editedBy: "Manager", stock: 28, previousStock: 30, needsStockCheck: false },
+  { id: 3, name: "Broccoli", lastEdit: "", editedBy: "", stock: 0, previousStock: 25, needsStockCheck: true },
+  { id: 4, name: "Spinach", lastEdit: "04/09/2025", editedBy: "Name", stock: 42, previousStock: 45, needsStockCheck: false },
+  { id: 5, name: "Bell Peppers", lastEdit: "", editedBy: "", stock: 0, previousStock: 60, needsStockCheck: true },
+  { id: 6, name: "Cucumbers", lastEdit: "03/09/2025", editedBy: "Admin", stock: 18, previousStock: 22, needsStockCheck: false },
+  { id: 7, name: "Lettuce", lastEdit: "", editedBy: "", stock: 0, previousStock: 35, needsStockCheck: true },
+  { id: 8, name: "Onions", lastEdit: "02/09/2025", editedBy: "Manager", stock: 67, previousStock: 70, needsStockCheck: false },
+  { id: 9, name: "Potatoes", lastEdit: "01/09/2025", editedBy: "Name", stock: 89, previousStock: 95, needsStockCheck: false },
+  { id: 10, name: "Zucchini", lastEdit: "", editedBy: "", stock: 0, previousStock: 28, needsStockCheck: true },
+  { id: 11, name: "Cauliflower", lastEdit: "04/09/2025", editedBy: "Admin", stock: 15, previousStock: 20, needsStockCheck: false },
+  { id: 12, name: "Green Beans", lastEdit: "", editedBy: "", stock: 0, previousStock: 38, needsStockCheck: true },
+];
+
+// Main component that serves as the home page of the application
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Test <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">src/app/page.tsx</code>.
-          </li>
-        </ol>
+  // State to store the complete inventory list - useState manages this data
+  const [inventory] = useState<InventoryItem[]>(initialInventory);
+  
+  // State to store the current search term entered by user
+  const [searchTerm, setSearchTerm] = useState("");
+  
+  // State to track which navigation category is currently selected
+  const [selectedCategory, setSelectedCategory] = useState("Manage Inventory");
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+  return (
+    // Main container with full screen height, light gray background, and sans-serif font
+    <div className="min-h-screen bg-gray-100 font-sans">
+      {/* Header component with user name and role props */}
+      <Header userName="Name" userRole="Admin" />
+      
+      {/* Main layout container using flexbox, height calculated to fill screen minus header */}
+      <div className="flex h-[calc(100vh-65px)]">
+        {/* Sidebar component with current selection and callback function */}
+        <Sidebar 
+          selectedCategory={selectedCategory}           // Current selected nav item
+          onCategoryChange={setSelectedCategory}        // Function to update selection
+        />
+        
+        {/* Main content area component with inventory data and search */}
+        <InventoryTable 
+          inventory={inventory}                         // Complete inventory data
+          searchTerm={searchTerm}                      // Current search filter
+          onSearchChange={setSearchTerm}               // Function to update search
+        />
+      </div>
     </div>
   );
 }

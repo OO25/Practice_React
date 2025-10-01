@@ -1,26 +1,31 @@
+/* Import Tailwind CSS v4 - provides utility classes for styling */
 @import "tailwindcss";
 
+/* CSS Custom Properties (variables) for light theme */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #ffffff;      /* White background color */
+  --foreground: #171717;      /* Dark gray text color */
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Tailwind CSS v4 theme configuration using CSS variables */
+@theme {
+  --color-background: var(--background);     /* Map background variable */
+  --color-foreground: var(--foreground);     /* Map foreground variable */
+  --font-family-sans: var(--font-geist-sans); /* Map sans-serif font */
+  --font-family-mono: var(--font-geist-mono); /* Map monospace font */
 }
 
+/* Dark theme variables - automatically applies when user prefers dark mode */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #0a0a0a;    /* Very dark gray background */
+    --foreground: #ededed;    /* Light gray text color */
   }
 }
 
+/* Base body styles applied to entire application */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--background);                /* Use CSS variable for background */
+  color: var(--foreground);                     /* Use CSS variable for text color */
+  font-family: var(--font-geist-sans), system-ui, sans-serif; /* Use Geist font with fallbacks */
 }
