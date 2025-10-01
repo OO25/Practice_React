@@ -25,7 +25,7 @@ export default function InventoryTable({ inventory, searchTerm, onSearchChange }
 
   return (
     // Main container taking remaining space with light gray background and padding
-    <div className="flex-1 bg-gray-50 p-8">
+    <div className="flex-1 bg-gray-50 p-8 overflow-y-auto">
       {/* Top Section - Page header with title, branch info, and controls */}
       <div className="flex items-center justify-between mb-8">
         
@@ -54,7 +54,7 @@ export default function InventoryTable({ inventory, searchTerm, onSearchChange }
               placeholder="Search"
               value={searchTerm}
               onChange={(e) => onSearchChange(e.target.value)}
-              className="pl-10 pr-4 py-2.5 w-64 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="pl-10 pr-4 py-2.5 w-64 border border-gray-300 rounded-lg text-sm text-black focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             />
             {/* Search icon positioned inside input */}
             <svg 
